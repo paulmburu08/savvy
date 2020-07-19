@@ -21,7 +21,7 @@ from django_registration.backends.one_step.views import RegistrationView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^', include('riotmapperapp.urls')),
+    url(r'', include('savvyapp.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
     url('^accounts/register/',
         RegistrationView.as_view(success_url='/send/email/'),
