@@ -30,3 +30,9 @@ def new_profile(request):
         form = ProfileForm()
 
     return render(request, 'new_profile.html',{'form':form})
+
+@login_required(login_url='/accounts/login/')
+def profile(request,id):
+
+    profile = Profile.objects.get(user__id = id)
+    return render(request, 'profile.html',{'profile':profile})

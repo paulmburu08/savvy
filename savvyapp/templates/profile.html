@@ -1,0 +1,45 @@
+{% load bootstrap4 %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/c6c3a50631.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&family=Yellowtail&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Open+Sans+Condensed:ital,wght@1,300&family=Playfair+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <title>Profile</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container fluid">
+        <div class="profile-container">
+            <br>
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="profile-wrapper">
+                        <img src="{{ profile.profile_photo.url }}">
+                    </div>
+                </div> <br>
+                <div class="col-md-3 col-sm-6 bio">
+                    <p><b>{{ profile.bio }}</b></p>
+                    <!-- <p> {{ profile.home }} </p>
+                    <p> {{ profile.school }} </p>
+                    <p>{{ profile.work }}</p> -->
+                    <a href="{%url 'edit_profile' %}">
+                    <button type="button" class="btn btn-light">Edit Profile</button>
+                    </a>
+                </div>
+            </div> <br> <br>
+            <hr class="hr1">
+            <br> <br>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+</body>
+</html>
