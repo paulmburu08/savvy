@@ -4,8 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.contrib.gis.geos import fromstr
 from django.contrib.gis.db.models.functions import Distance
-from .models import Businesses
+from .models import Businesses,UserProfile
+from .forms import ProfileForm
 from .email import send_welcome_email
+
 
 # Create your views here.
 def index(request):
@@ -39,5 +41,5 @@ def new_profile(request):
 @login_required(login_url='/accounts/login/')
 def profile(request,id):
 
-    profile = Profile.objects.get(user__id = id)
+    profile = UserProfile.objects.get(user__id = id)
     return render(request, 'profile.html',{'profile':profile})
