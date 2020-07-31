@@ -1,3 +1,17 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
+from django.contrib.auth.models import User
+from django.contrib.gis.db import models
+from tinymce.models import HTMLField
 
 # Create your models here.
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile_pic = CloudinaryField('image')
+    email = HTMLField()
+
+class Businesses(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.PointField()
+    address = models.CharField(max_length=100)
+    city = models.CharField(max_length=50)

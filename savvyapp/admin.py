@@ -1,3 +1,7 @@
 from django.contrib import admin
+from django.contrib.gis.admin import OSMGeoAdmin
+from .models import Businesses
 
-# Register your models here.
+@admin.register(Businesses)
+class ShopAdmin(OSMGeoAdmin):
+    list_display = ('name', 'location')

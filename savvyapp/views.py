@@ -1,4 +1,5 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,reverse
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .email import send_welcome_email
 
