@@ -36,6 +36,16 @@
             </div> <br> <br>
             <hr class="hr1">
             <br> <br>
+            <h1>Nearby businesses</h1>
+            {% if businesses %}
+            <ul>
+            {% for business in businesses %}
+                <li>
+                {{ business.name }}: {{business.distance}}
+                </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
             </div>
         </div>
     </div>

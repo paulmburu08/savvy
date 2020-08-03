@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.contrib.gis.geos import fromstr
 from django.contrib.gis.db.models.functions import Distance
+from geopy.geocoders import Nominatim
+from django.contrib.gis.geos import Point
 from .models import Businesses,UserProfile
 from .forms import ProfileForm
 from .email import send_welcome_email
@@ -42,4 +44,22 @@ def new_profile(request):
 def profile(request,id):
 
     profile = UserProfile.objects.get(user__id = id)
+    geolocator = Nominatim(user_agent="savvyapp")
+    location_name = profile.location
+    location = geolocator.geocode(location_name)
+
+    latitude = location.latitude
+    longitude = location.longitude
+
+    global user_location
+    user_location = Point(longitude, latitude, srid=4326)
+
     return render(request, 'profile.html',{'profile':profile})
+
+class Home(generic.ListView):
+    model = Businesses
+    context_object_name = 'businesses'
+    queryset = Businesses.objects.annotate(distance=Distance('location',
+    user_location)
+    ).order_by('distance')[0:6]
+    template_name = 'profile.html'
