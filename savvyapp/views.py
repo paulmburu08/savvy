@@ -6,6 +6,9 @@ from django.contrib.gis.geos import fromstr
 from django.contrib.gis.db.models.functions import Distance
 from geopy.geocoders import Nominatim
 from django.contrib.gis.geos import Point
+from django.contrib.gis.geos import fromstr
+from django.contrib.gis.measure import D
+import folium
 from .models import Businesses,UserProfile
 from .forms import ProfileForm
 from .email import send_welcome_email
@@ -44,22 +47,28 @@ def new_profile(request):
 def profile(request,id):
 
     profile = UserProfile.objects.get(user__id = id)
-    geolocator = Nominatim(user_agent="savvyapp")
-    location_name = profile.location
-    location = geolocator.geocode(location_name)
+    # geolocator = Nominatim(user_agent="savvyapp")
+    # location_name = profile.location
+    # location = geolocator.geocode(location_name)
 
-    latitude = location.latitude
-    longitude = location.longitude
+    # latitude = location.latitude
+    # longitude = location.longitude
 
-    global user_location
-    user_location = Point(longitude, latitude, srid=4326)
+    # global user_location
+    user_location = Point(36.762300, -1.298031, srid=4326)
+    # user_location = fromstr('POINT(-73 40)')
+    businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=1000)))
+    for business in businesses:
+        point = business.location
+        lat = point.y
+        lon = point.x
+        map_osm = folium.Map(location=[lat,lon])
+    return render(request, 'profile.html',{'profile':profile,'businesses':businesses})
 
-    return render(request, 'profile.html',{'profile':profile})
-
-class Home(generic.ListView):
-    model = Businesses
-    context_object_name = 'businesses'
-    queryset = Businesses.objects.annotate(distance=Distance('location',
-    user_location)
-    ).order_by('distance')[0:6]
-    template_name = 'profile.html'
+# class BusinessList(generic.ListView):
+#     model = Businesses
+#     context_object_name = 'businesses'
+#     queryset = Businesses.objects.annotate(distance=Distance('location',
+#     user_location)
+#     ).order_by('distance')[0:6]
+#     template_name = 'profile.html'

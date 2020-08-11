@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'', include('savvyapp.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
     url('^accounts/register/',
-        RegistrationView.as_view(success_url='/send/email/'),
+        RegistrationView.as_view(success_url='/send/email'),
         name='django_registration_register'),
     url(r'^accounts/', include('django_registration.backends.one_step.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),

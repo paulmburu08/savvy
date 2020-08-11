@@ -14,7 +14,6 @@
     <title>Profile</title>
 </head>
 <body>
-    {% include 'navbar.html' %}
     <div class="container fluid">
         <div class="profile-container">
             <br>
@@ -29,14 +28,14 @@
                     <!-- <p> {{ profile.home }} </p>
                     <p> {{ profile.school }} </p>
                     <p>{{ profile.work }}</p> -->
-                    <a href="{%url 'edit_profile' %}">
+    
                     <button type="button" class="btn btn-light">Edit Profile</button>
                     </a>
                 </div>
             </div> <br> <br>
             <hr class="hr1">
             <br> <br>
-            <h1>Nearby businesses</h1>
+            <!-- <h1>Nearby businesses</h1>
             {% if businesses %}
             <ul>
             {% for business in businesses %}
@@ -45,7 +44,7 @@
                 </li>
             {% endfor %}
             </ul>
-            {% endif %}
+            {% endif %} -->
             </div>
         </div>
     </div>
