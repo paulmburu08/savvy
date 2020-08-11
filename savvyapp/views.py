@@ -46,29 +46,17 @@ def new_profile(request):
 @login_required(login_url='/accounts/login/')
 def profile(request,id):
 
-    profile = UserProfile.objects.get(user__id = id)
-    # geolocator = Nominatim(user_agent="savvyapp")
-    # location_name = profile.location
-    # location = geolocator.geocode(location_name)
-
-    # latitude = location.latitude
-    # longitude = location.longitude
-
-    # global user_location
     user_location = Point(36.762300, -1.298031, srid=4326)
-    # user_location = fromstr('POINT(-73 40)')
-    businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=1000)))
+    businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
+    map_page = folium.Map(location=[-1.298031,36.762300],zoom_start=14)
     for business in businesses:
         point = business.location
         lat = point.y
         lon = point.x
-        map_osm = folium.Map(location=[lat,lon])
-    return render(request, 'profile.html',{'profile':profile,'businesses':businesses})
+        folium.Marker([lat,lon],
+                    popup=f'{business.name}',
+                    tooltip=f'{business.name}',
+                    icon=folium.Icon(icon=' glyphicon-briefcase', color='green')).add_to(map_page)
+        my_map = map_page._repr_html_()
 
-# class BusinessList(generic.ListView):
-#     model = Businesses
-#     context_object_name = 'businesses'
-#     queryset = Businesses.objects.annotate(distance=Distance('location',
-#     user_location)
-#     ).order_by('distance')[0:6]
-#     template_name = 'profile.html'
+    return render(request, 'profile.html',{'profile':profile,'businesses':businesses,'my_map':my_map})
