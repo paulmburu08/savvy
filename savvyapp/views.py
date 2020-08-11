@@ -10,7 +10,7 @@ from django.contrib.gis.geos import fromstr
 from django.contrib.gis.measure import D
 import folium
 from .models import Businesses,UserProfile
-from .forms import ProfileForm
+from .forms import ProfileForm,PostsForm
 from .email import send_welcome_email
 
 
@@ -159,3 +159,19 @@ def profile(request,id):
             my_map = map_page._repr_html_()
 
     return render(request, 'profile.html',{'profile':profile,'businesses':businesses,'my_map':my_map})
+
+@login_required(login_url='/accounts/login/')
+def new_post(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = PostsForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = current_user
+            post.save()
+        return redirect(index)
+
+    else:
+        form = PostsForm()
+
+    return render(request, 'new_post.html',{'form':form})
