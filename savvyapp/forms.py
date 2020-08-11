@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserProfile
+from .models import UserProfile,Posts
 
 LOCATION = [
     ('cbd','CBD'),
@@ -17,7 +17,15 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         exclude = ['user','creat_at','updated_at']
-        fields = ['location' , 'profile_pic', 'bio', 'email']
+        fields = ['profile_pic', 'bio', 'email','location']
         widgets = {
             'email' : forms.EmailInput(),
+        }
+
+class PostsForm(forms.ModelForm):
+    class Meta:
+        model = Posts
+        exclude = ['user','creat_at','updated_at']
+        widgets = {
+            'title' : forms.CharField()
         }
