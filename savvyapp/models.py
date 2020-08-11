@@ -19,3 +19,11 @@ class Businesses(models.Model):
     location = models.PointField()
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=50)
+
+class Posts(models.Model):
+    title = HTMLField()
+    description = HTMLField()
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+

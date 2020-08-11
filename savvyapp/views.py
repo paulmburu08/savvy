@@ -48,7 +48,7 @@ def profile(request,id):
 
     if UserProfile.objects.get(location='cbd'):
         user_location = Point(36.823634, -1.283784, srid=4326)
-        businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
+        businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=1500)))
         map_page = folium.Map(location=[-1.283784,36.823634],zoom_start=14)
         for business in businesses:
             point = business.location
