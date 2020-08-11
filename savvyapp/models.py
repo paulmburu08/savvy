@@ -10,8 +10,7 @@ class UserProfile(models.Model):
     profile_pic = CloudinaryField('image')
     bio = HTMLField()
     email = HTMLField()
-    location = HTMLField()
-    neighborhood = HTMLField()
+    location = HTMLField('Location/Neighborhood')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
