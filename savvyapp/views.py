@@ -27,8 +27,120 @@ def index(request):
 def neighborhoods(request,neighborhood):
 
     posts = Posts.objects.filter(user__location__contain=neighborhood)
+
+    if neighborhood == 'cbd':
+        user_location = Point(36.823634, -1.283784, srid=4326)
+        businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=1500)))
+        map_page = folium.Map(location=[-1.283784,36.823634],zoom_start=14)
+        for business in businesses:
+            point = business.location
+            lat = point.y
+            lon = point.x
+            folium.Marker([lat,lon],
+                        popup=f'{business.name}',
+                        tooltip=f'{business.name}',
+                        icon=folium.Icon(icon=' glyphicon-briefcase', color='green')).add_to(map_page)
+            my_map = map_page._repr_html_()
+
+    elif neighborhood == 'westlands':
+        user_location = Point(36.809557, -1.267824, srid=4326)
+        businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
+        map_page = folium.Map(location=[-1.267824,36.809557],zoom_start=14)
+        for business in businesses:
+            point = business.location
+            lat = point.y
+            lon = point.x
+            folium.Marker([lat,lon],
+                        popup=f'{business.name}',
+                        tooltip=f'{business.name}',
+                        icon=folium.Icon(icon=' glyphicon-briefcase', color='green')).add_to(map_page)
+            my_map = map_page._repr_html_()
+
+    elif neighborhood == 'makadara':
+        user_location = Point(36.855793, -1.302774, srid=4326)
+        businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
+        map_page = folium.Map(location=[-1.302774,36.855793],zoom_start=14)
+        for business in businesses:
+            point = business.location
+            lat = point.y
+            lon = point.x
+            folium.Marker([lat,lon],
+                        popup=f'{business.name}',
+                        tooltip=f'{business.name}',
+                        icon=folium.Icon(icon=' glyphicon-briefcase', color='green')).add_to(map_page)
+            my_map = map_page._repr_html_()
+
+    elif neighborhood =='kasarani':
+        user_location = Point(36.897451, -1.223924, srid=4326)
+        businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
+        map_page = folium.Map(location=[-1.223924, 36.897451],zoom_start=14)
+        for business in businesses:
+            point = business.location
+            lat = point.y
+            lon = point.x
+            folium.Marker([lat,lon],
+                        popup=f'{business.name}',
+                        tooltip=f'{business.name}',
+                        icon=folium.Icon(icon=' glyphicon-briefcase', color='green')).add_to(map_page)
+            my_map = map_page._repr_html_()
+
+    elif neighborhood =='pumwani':
+        user_location = Point(36.846043, -1.283208, srid=4326)
+        businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
+        map_page = folium.Map(location=[-1.283208, 36.846043],zoom_start=14)
+        for business in businesses:
+            point = business.location
+            lat = point.y
+            lon = point.x
+            folium.Marker([lat,lon],
+                        popup=f'{business.name}',
+                        tooltip=f'{business.name}',
+                        icon=folium.Icon(icon=' glyphicon-briefcase', color='green')).add_to(map_page)
+            my_map = map_page._repr_html_()
+
+    elif neighborhood =='kibera':
+        user_location = Point(36.781516, -1.313696, srid=4326)
+        businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
+        map_page = folium.Map(location=[-1.313696, 36.781516],zoom_start=14)
+        for business in businesses:
+            point = business.location
+            lat = point.y
+            lon = point.x
+            folium.Marker([lat,lon],
+                        popup=f'{business.name}',
+                        tooltip=f'{business.name}',
+                        icon=folium.Icon(icon=' glyphicon-briefcase', color='green')).add_to(map_page)
+            my_map = map_page._repr_html_()
+
+    elif neighborhood =='karen':
+        user_location = Point(36.703910, -1.320081, srid=4326)
+        businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
+        map_page = folium.Map(location=[-1.320081, 36.703910],zoom_start=14)
+        for business in businesses:
+            point = business.location
+            lat = point.y
+            lon = point.x
+            folium.Marker([lat,lon],
+                        popup=f'{business.name}',
+                        tooltip=f'{business.name}',
+                        icon=folium.Icon(icon=' glyphicon-briefcase', color='green')).add_to(map_page)
+            my_map = map_page._repr_html_()
+
+    elif neighborhood =='dagoretti':
+        user_location = Point(36.712655, -1.279289, srid=4326)
+        businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
+        map_page = folium.Map(location=[-1.279289, 36.712655],zoom_start=14)
+        for business in businesses:
+            point = business.location
+            lat = point.y
+            lon = point.x
+            folium.Marker([lat,lon],
+                        popup=f'{business.name}',
+                        tooltip=f'{business.name}',
+                        icon=folium.Icon(icon=' glyphicon-briefcase', color='green')).add_to(map_page)
+            my_map = map_page._repr_html_()
         
-    return render(request, 'neighborhood.html',{'posts':posts})
+    return render(request, 'neighborhood.html',{'posts':posts, 'my_map':my_map})
 
 @login_required(login_url='/accounts/login/')
 def send_email(request):
@@ -170,7 +282,7 @@ def profile(request,id):
                         icon=folium.Icon(icon=' glyphicon-briefcase', color='green')).add_to(map_page)
             my_map = map_page._repr_html_()
 
-    return render(request, 'profile.html',{'profile':profile,'businesses':businesses,'my_map':my_map})
+    return render(request, 'profile.html',{'profile':profile,'my_map':my_map})
 
 @login_required(login_url='/accounts/login/')
 def new_post(request,id):

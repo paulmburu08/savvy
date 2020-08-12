@@ -21,6 +21,7 @@ class Businesses(models.Model):
     city = models.CharField(max_length=50)
 
 class Posts(models.Model):
+    image = CloudinaryField('image')
     title = HTMLField()
     description = HTMLField()
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
