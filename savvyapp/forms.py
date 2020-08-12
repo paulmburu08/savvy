@@ -29,3 +29,10 @@ class PostsForm(forms.ModelForm):
         widgets = {
             'title' : forms.TextInput()
         }
+
+class ChangeHood(forms.ModelForm):
+    location = forms.ChoiceField(choices=LOCATION, widget=forms.RadioSelect())
+    class Meta:
+        model = UserProfile
+        exclude = ['user','creat_at','updated_at','profile_pic', 'bio', 'email']
+        fields = ['location']

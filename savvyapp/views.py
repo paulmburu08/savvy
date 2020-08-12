@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,Http404
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.contrib.gis.geos import fromstr
@@ -8,9 +8,10 @@ from geopy.geocoders import Nominatim
 from django.contrib.gis.geos import Point
 from django.contrib.gis.geos import fromstr
 from django.contrib.gis.measure import D
+from django.core.exceptions import ObjectDoesNotExist
 import folium
 from .models import Businesses,UserProfile,Posts
-from .forms import ProfileForm,PostsForm
+from .forms import ProfileForm,PostsForm,ChangeHood
 from .email import send_welcome_email
 
 
@@ -171,16 +172,21 @@ def new_profile(request):
 @login_required(login_url='/accounts/login/')
 def edit_profile(request):
     current_user = request.user
+    try:
+        profile = UserProfile.objects.get(user= current_user)
+    
+    except ObjectDoesNotExist:
+        raise Http404()
+    
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES)
+        form = ChangeHood(request.POST)
         if form.is_valid():
-            profile = form.save(commit=False)
-            profile.user = current_user
+            profile.location = form.cleaned_data['location']
             profile.save()
         return HttpResponseRedirect(reverse('profile',args=[str(request.user.id)]))
 
     else:
-        form = ProfileForm()
+        form = ChangeHood()
 
     return render(request, 'edit_profile.html',{'form':form})
 

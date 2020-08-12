@@ -30,3 +30,12 @@ width: auto;
 height: 100%;
 margin-left: -50px;
 }
+
+.navbar-brand{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.navbar{
+    font-family: 'Montserrat', sans-serif;
+}

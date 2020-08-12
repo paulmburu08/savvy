@@ -18,15 +18,11 @@
     {% include 'navbar.html' %}
     <div class="container-fluid">
         <div class="header">
-            {% for post in posts %}
-                <h2>Businesses in {{ post.user.location }}</h2>
-            {% endfor %}
+            <h2>Businesses</h2>
         </div> <br>
         {{my_map|safe}} <hr>
         <div class="header">
-            {% for post in posts %}
-                <h2>Posts for {{ post.user.location }}</h2>
-            {% endfor %}
+            <h2>Posts</h2>
         </div> <br> <br>
         <div class="row">
             {% for post in posts %}
