@@ -27,5 +27,5 @@ class PostsForm(forms.ModelForm):
         model = Posts
         exclude = ['user','creat_at','updated_at']
         widgets = {
-            'title' : forms.CharField()
+            'title' : forms.TextInput()
         }

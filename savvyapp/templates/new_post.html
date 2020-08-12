@@ -13,11 +13,12 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="edit-profile">
+        {% include 'navbar.html' %}
+        <div class="new_post">
             {% if user.is_authenticated %}
             <p><b>Dear {{ user.get_username }}. Only people can your neighborhood can see this post.</b></p>
             {% endif %}
-            <form  action="{%url 'new_post' %}" method="post" enctype="multipart/form-data">
+            <form  action="{%url 'new_post' user.id %}" method="post" enctype="multipart/form-data">
                 {%csrf_token%}
             
                 {% bootstrap_form form %}
