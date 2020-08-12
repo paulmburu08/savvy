@@ -14,17 +14,17 @@
     <title>Savvy</title>
 </head>
 <body>
+    {% include 'navbar.html' %}
     <div class="container-fluid">
-        {% include 'navbar.html' %}
         <div>
             {% for post in posts %}
-                <h2>{{ Businesses in post.user.location }}</h2>
+                <h2>Businesses in {{ post.user.location }}</h2>
             {% endfor %}
         </div>
         {{my_map|safe}}
         <div class="header">
             {% for post in posts %}
-                <h2>{{ Posts for post.user.location }}</h2>
+                <h2>Posts for {{ post.user.location }}</h2>
             {% endfor %}
         </div>
         <div class="row">

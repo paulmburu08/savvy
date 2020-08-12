@@ -14,11 +14,11 @@
     <title>Savvy</title>
 </head>
 <body>
+    {% include 'navbar.html' %}
     <div class="container-fluid">
-        {% include 'navbar.html' %}
         <div class="header">
             {% for post in posts %}
-                <h2>{{ Posts for post.user.location }}</h2>
+                <h2>Posts for {{ post.user.location }}</h2>
             {% endfor %}
         </div>
         <div class="row">

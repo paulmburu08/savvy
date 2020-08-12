@@ -26,7 +26,7 @@ def index(request):
 
 def neighborhoods(request,neighborhood):
 
-    posts = Posts.objects.filter(user__location__contain=neighborhood)
+    posts = Posts.objects.filter(user__location__contains=neighborhood)
 
     if neighborhood == 'cbd':
         user_location = Point(36.823634, -1.283784, srid=4326)

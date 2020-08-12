@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    {% include 'navbar.html' %}
     <div class="container-fluid">
-        {% include 'navbar.html' %}
         <div class="new_post">
             {% if user.is_authenticated %}
             <p><b>Dear {{ user.get_username }}. Only people can your neighborhood can see this post.</b></p>

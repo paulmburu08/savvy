@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    {% include 'navbar.html' %}
     <div class="container-fluid">
-        {% include 'navbar.html' %}
         <div class="new_profile">
             {% if user.is_authenticated %}
             <p><b>Welcome, {{ user.get_username }}. Thank you for creating an account. Kindly create a profile so as to continue</b></p>
