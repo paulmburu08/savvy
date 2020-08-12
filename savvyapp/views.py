@@ -9,15 +9,20 @@ from django.contrib.gis.geos import Point
 from django.contrib.gis.geos import fromstr
 from django.contrib.gis.measure import D
 import folium
-from .models import Businesses,UserProfile
+from .models import Businesses,UserProfile,Posts
 from .forms import ProfileForm,PostsForm
 from .email import send_welcome_email
 
 
 # Create your views here.
 def index(request):
+    current_user = request.user
+    user = UserProfile.objects.get(user=current_user)
+    user_location = user.location
 
-    return render(request, 'index.html')
+    posts = Posts.objects.filter(user__location__contains = user_location)
+
+    return render(request, 'index.html',{'posts':posts})
 
 @login_required(login_url='/accounts/login/')
 def send_email(request):
