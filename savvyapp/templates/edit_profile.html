@@ -1,0 +1,33 @@
+{% load bootstrap4 %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Profile</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/c6c3a50631.js"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container-fluid">
+        <div class="edit-profile">
+            <form  action="{%url 'edit_profile' %}" method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+            
+                {% bootstrap_form form %}
+                <input type="submit" class="btn btn-success" value="Post">
+            </form>
+            
+            {% block scripts %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            {% bootstrap_javascript %}
+
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

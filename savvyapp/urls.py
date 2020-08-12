@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^neighborhood/([A-Za-z]+)',views.neighborhoods,name ='neighborhood'),
     path('send/email', views.send_email, name='email'),
     path('new/profile', views.new_profile, name='new_profile'),
+    url(r'^edit/profile$', views.edit_profile, name='edit_profile'),
     path('profile/<int:id>', views.profile, name='profile'),
     path('new/post/<int:id>', views.new_post, name='new_post'),
 ]
