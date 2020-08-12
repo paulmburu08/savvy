@@ -15,15 +15,17 @@ from .email import send_welcome_email
 
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def index(request):
     current_user = request.user
-    user = UserProfile.objects.get(user=current_user)
-    user_location = user.location
+    the_user = UserProfile.objects.get(user=current_user)
+    user_location = the_user.location
 
     posts = Posts.objects.filter(user__location__contains = user_location)
 
-    return render(request, 'index.html',{'posts':posts})
+    return render(request, 'index.html',{'posts':posts,'the_user':the_user})
 
+@login_required(login_url='/accounts/login/')
 def neighborhoods(request,neighborhood):
 
     posts = Posts.objects.filter(user__location__contains=neighborhood)
@@ -31,7 +33,7 @@ def neighborhoods(request,neighborhood):
     if neighborhood == 'cbd':
         user_location = Point(36.823634, -1.283784, srid=4326)
         businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=1500)))
-        map_page = folium.Map(location=[-1.283784,36.823634],zoom_start=14)
+        map_page = folium.Map(location=[-1.283784,36.823634],zoom_start=14,width=750, height=500)
         for business in businesses:
             point = business.location
             lat = point.y
@@ -45,7 +47,7 @@ def neighborhoods(request,neighborhood):
     elif neighborhood == 'westlands':
         user_location = Point(36.809557, -1.267824, srid=4326)
         businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
-        map_page = folium.Map(location=[-1.267824,36.809557],zoom_start=14)
+        map_page = folium.Map(location=[-1.267824,36.809557],zoom_start=14,width=750, height=500)
         for business in businesses:
             point = business.location
             lat = point.y
@@ -59,7 +61,7 @@ def neighborhoods(request,neighborhood):
     elif neighborhood == 'makadara':
         user_location = Point(36.855793, -1.302774, srid=4326)
         businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
-        map_page = folium.Map(location=[-1.302774,36.855793],zoom_start=14)
+        map_page = folium.Map(location=[-1.302774,36.855793],zoom_start=14,width=750, height=500)
         for business in businesses:
             point = business.location
             lat = point.y
@@ -73,7 +75,7 @@ def neighborhoods(request,neighborhood):
     elif neighborhood =='kasarani':
         user_location = Point(36.897451, -1.223924, srid=4326)
         businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
-        map_page = folium.Map(location=[-1.223924, 36.897451],zoom_start=14)
+        map_page = folium.Map(location=[-1.223924, 36.897451],zoom_start=14,width=750, height=500)
         for business in businesses:
             point = business.location
             lat = point.y
@@ -87,7 +89,7 @@ def neighborhoods(request,neighborhood):
     elif neighborhood =='pumwani':
         user_location = Point(36.846043, -1.283208, srid=4326)
         businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
-        map_page = folium.Map(location=[-1.283208, 36.846043],zoom_start=14)
+        map_page = folium.Map(location=[-1.283208, 36.846043],zoom_start=14,width=750, height=500)
         for business in businesses:
             point = business.location
             lat = point.y
@@ -101,7 +103,7 @@ def neighborhoods(request,neighborhood):
     elif neighborhood =='kibera':
         user_location = Point(36.781516, -1.313696, srid=4326)
         businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
-        map_page = folium.Map(location=[-1.313696, 36.781516],zoom_start=14)
+        map_page = folium.Map(location=[-1.313696, 36.781516],zoom_start=14,width=750, height=500)
         for business in businesses:
             point = business.location
             lat = point.y
@@ -115,7 +117,7 @@ def neighborhoods(request,neighborhood):
     elif neighborhood =='karen':
         user_location = Point(36.703910, -1.320081, srid=4326)
         businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
-        map_page = folium.Map(location=[-1.320081, 36.703910],zoom_start=14)
+        map_page = folium.Map(location=[-1.320081, 36.703910],zoom_start=14,width=750, height=500)
         for business in businesses:
             point = business.location
             lat = point.y
@@ -129,7 +131,7 @@ def neighborhoods(request,neighborhood):
     elif neighborhood =='dagoretti':
         user_location = Point(36.712655, -1.279289, srid=4326)
         businesses = Businesses.objects.filter(location__distance_lte=(user_location, D(m=2000)))
-        map_page = folium.Map(location=[-1.279289, 36.712655],zoom_start=14)
+        map_page = folium.Map(location=[-1.279289, 36.712655],zoom_start=14,width=750, height=500)
         for business in businesses:
             point = business.location
             lat = point.y

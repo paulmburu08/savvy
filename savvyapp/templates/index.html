@@ -10,6 +10,7 @@
     <script src="https://use.fontawesome.com/c6c3a50631.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Raleway&family=Yellowtail&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Open+Sans+Condensed:ital,wght@1,300&family=Playfair+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>Savvy</title>
 </head>
@@ -17,20 +18,17 @@
     {% include 'navbar.html' %}
     <div class="container-fluid">
         <div class="header">
-            {% for post in posts %}
-                <h2>Posts for {{ post.user.location }}</h2>
-            {% endfor %}
-        </div>
+                <h1>{{ the_user.location }} | Posts</h1>
+        </div> <br> <br>
         <div class="row">
             {% for post in posts %}
             <div class="col-md-3 col-sm-6">
                 <div class="card" style="width: 90%;">
                     <img class="card-img-top" src="{{ post.image.url }}" alt="Card image cap">
                     <div class="card-body">
-                    <h3>{{ post.title }}</h3>
-                    <p>{{ post.description }}</p>
-                    <p class="name">{{ post.user.username }}</p>
-                    <p class="date">{{post.created_at|date:"l d-F Y"}}</p>
+                    <h4 class="card_title">{{ post.title }}</h4>
+                    <p class="description">{{ post.description }}</p>
+                    <p class="date">{{ post.user.user.username }} | {{post.created_at|date:"l d-F Y"}}</p>
                     </div>
                 </div>
             </div>
