@@ -1,5 +1,5 @@
 # SAVVY
-Your Job is to create a web application that allows you to be in the loop about everything happening in your neighborhood.
+Web application that allows you to be in the loop about everything happening in your neighborhood.
 
 # Authors
 {paulmburu08}https://github.com/paulmburu08
